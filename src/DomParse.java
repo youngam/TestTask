@@ -29,14 +29,14 @@ public class DomParse {
 
     }
     // Method for getting information about Event
-    public static void getInformation(String group, String country ){
+    public static void getInformation(String group, String country ) {
         // Get the information from server
         URI uri = null;
         try {
             uri = new URI(
                     "http",
                     "api.bandsintown.com",
-                    "/artists/" +group+ "/events.xml",
+                    "/artists/" + group + "/events.xml",
                     null);
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -65,12 +65,19 @@ public class DomParse {
         doc.getDocumentElement().normalize();
         // Get the information about event
         NodeList nList = doc.getElementsByTagName("event");
+        if (nList.getLength() <= 0) {
+            System.out.println("Такой группы нет на этом сайте :(");
+        }
+        else {
+            boolean check = false;
+
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node node = nList.item(temp);
             if (node.getNodeType() == node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 // Output the information about event
-                if(element.getElementsByTagName("country").item(0).getTextContent().equals(country) ) {
+                if (element.getElementsByTagName("country").item(0).getTextContent().equals(country)) {
+                    check = true;
                     System.out.println("Information about event: ");
                     System.out.println("Artist name: " + element.getElementsByTagName("name").item(0).getTextContent());
                     System.out.println("datetime: " + element.getElementsByTagName("datetime").item(0).getTextContent());
@@ -78,13 +85,21 @@ public class DomParse {
                     System.out.println("region: " + element.getElementsByTagName("region").item(0).getTextContent());
                     System.out.println("country: " + element.getElementsByTagName("country").item(0).getTextContent());
                     System.out.println("ticket_status: " + element.getElementsByTagName("ticket_status").item(0).getTextContent());
-                    System.out.println("on_sale_datetime: " + element.getElementsByTagName("on_sale_datetime").item(0).getTextContent());
+                    if(element.getElementsByTagName("ticket_status").item(0).getTextContent().equals("available")) {
+                        System.out.println("on_sale_datetime: " + element.getElementsByTagName("on_sale_datetime").item(0).getTextContent());
+                    }
                     System.out.println("-----------------------------");
                 }
+
+
 
             }
 
         }
+            if(!check){
+                System.out.println("There aren't any events of this group in this country");
+            }
+    }
 
 
     }
