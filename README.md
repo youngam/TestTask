@@ -6,7 +6,7 @@
 
 * Соглашения по формату, стилю написанию кода
 
-* Установка `Android Studio`
+* [Установка `Android Studio`](#link1)
 
 * Создание пустого проекта
 
@@ -88,7 +88,7 @@ public class UserInfoActivity extends AppCompatActivity {
 В этом случае вы изменяете элемент `followers_text_view`, не изменяя остальные аттрибуты.
 
 
-# Установка *Android Studio*
+# <a name="link1"></a>Установка *Android Studio*
 
 Единственная программа, необходимая для разработки мобильного приложения - `Android studio`. Всё, что необходимо сделать для установки:
 
